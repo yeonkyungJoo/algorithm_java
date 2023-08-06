@@ -14,14 +14,11 @@ public class q8 {
         }
 
         int[] rank = new int[N];
-        Arrays.fill(rank, -1);
-        rank[0] = 1;
+        Arrays.fill(rank, 1);
         for (int i = 1; i < N; i++) {
             for (int j = 0; j < i; j++) {
                 if (scores[j] < scores[i]) {
-                    int tmp = rank[j];
                     rank[j] += 1;
-                    rank[i] = tmp;
                 } else if (scores[j] == scores[i]) {
                     rank[i] = rank[j];
                 } else {
