@@ -1,10 +1,6 @@
 package ch5;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 
 public class q6 {
 
@@ -18,7 +14,7 @@ public class q6 {
         for (int i = 1; i < N + 1; i++) {
             list.add(i);
         }
-        Queue<Integer> queue = new ConcurrentLinkedQueue<>(list);
+        Queue<Integer> queue = new LinkedList<>(list);
 
         int count = 1;
         while (queue.size() != 1) {

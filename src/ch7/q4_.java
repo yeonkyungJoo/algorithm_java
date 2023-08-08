@@ -2,10 +2,14 @@ package ch7;
 
 import java.util.Scanner;
 
-public class q4 {
+public class q4_ {
 
     static int[] arr;
     public static int fibo(int i) {
+
+        if (arr[i] > 0) {
+            return arr[i];
+        }
 
         if (i <= 2) {
             return arr[i] = 1;

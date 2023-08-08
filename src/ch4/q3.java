@@ -1,9 +1,9 @@
 package ch4;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class q3 {
 
@@ -17,7 +17,7 @@ public class q3 {
             arr[i] = in.nextInt();
         }
 
-        Queue<Integer> queue = new ConcurrentLinkedQueue<>();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < K; i++) {
             queue.offer(arr[i]);
         }
