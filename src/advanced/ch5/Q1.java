@@ -16,7 +16,7 @@ public class Q1 {
                 answer++;
                 break;
             } else {
-
+/*
                 if (nums[r] > m) {
                     r--;
                     answer++;
@@ -28,6 +28,7 @@ public class Q1 {
                     answer++;
                     continue;
                 }
+*/
 
                 if (nums[l] + nums[r] <= m) {
                     answer++;

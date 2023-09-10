@@ -10,20 +10,13 @@ public class Q1 {
     private int size;
 
     private int[] checked;
-    private int[] result;
     private int answer = Integer.MAX_VALUE;
 
-    private void dfs(int idx) {
+    private void dfs(int idx, int number) {
 
         if (idx == this.size) {
-            StringBuilder sb = new StringBuilder();
-            for (int n : result) {
-                sb.append(n);
-            }
-
-            int rv = Integer.parseInt(sb.toString());
-            if (rv > n) {
-                answer = Integer.min(answer, rv);
+            if (number > n) {
+                answer = Integer.min(answer, number);
             }
             return;
         }
@@ -31,8 +24,7 @@ public class Q1 {
         for (int i = 0; i < size; i++) {
             if (checked[i] == 0) {
                 checked[i] = 1;
-                result[idx] = array[i];
-                dfs(idx+1);
+                dfs(idx+1, number * 10 + array[i]);
                 checked[i] = 0;
             }
         }
@@ -52,11 +44,8 @@ public class Q1 {
         this.n = n;
         this.array = getArray(n);
         this.size = array.length;
-//        System.out.println(Arrays.toString(getArray(n)));
-
         this.checked = new int[this.size];
-        this.result = new int[this.size];
-        dfs(0);
+        dfs(0, 0);
 
         if (this.answer == Integer.MAX_VALUE) {
             return -1;
@@ -66,11 +55,11 @@ public class Q1 {
 
     // TODO - 동시성 체크
     public static void main(String[] args){
-        Q1 T = new Q1();
-        System.out.println(T.solution(123));
-        System.out.println(T.solution(321));
-        System.out.println(T.solution(20573));
-        System.out.println(T.solution(27711));
-        System.out.println(T.solution(54312));
+//        Q1 T = new Q1();
+        System.out.println(new Q1().solution(123));
+        System.out.println(new Q1().solution(321));
+        System.out.println(new Q1().solution(20573));
+        System.out.println(new Q1().solution(27711));
+        System.out.println(new Q1().solution(54312));
     }
 }
