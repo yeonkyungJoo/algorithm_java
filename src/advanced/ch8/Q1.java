@@ -1,48 +1,55 @@
 package advanced.ch8;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Q1 {
-
-    private int[][] graph;
-    private int k;
-    private int answer = Integer.MAX_VALUE;
-
-    private void dfs(int s, int e, int cnt, int totalCost) {
-
-        if (cnt > k) {
-            return;
-        }
-
-        if (s == e) {
-            answer = Integer.min(answer, totalCost);
-            return;
-        }
-
-        int[] next = graph[s];
-        for (int i = 0; i < next.length; i++) {
-            if (next[i] == 0) {
-                continue;
-            }
-            dfs(i, e, cnt+1, totalCost + next[i]);
-        }
-    }
-
 
     public int solution(int n, int[][] flights, int s, int e, int k){
 
-        this.graph = new int[n][n];
-        this.k = k;
+        int[][] graph = new int[n][n];
         for (int i = 0; i < flights.length; i++) {
             int start = flights[i][0];
             int end = flights[i][1];
             int cost = flights[i][2];
-            this.graph[start][end] = cost;
+            graph[start][end] = cost;
         }
-        dfs(s, e, -1, 0);
 
-        if (this.answer == Integer.MAX_VALUE) {
-            return -1;
-        }
-        return this.answer;
+        Queue<Integer> queue = new LinkedList<>();
+        int[] visited = new int[n + 1];
+        queue.add(s);
+        visited[s] = 1;
+        int totalCost = 0;
+//        while (!queue.isEmpty()) {
+//
+//            int size = queue.size();
+//            for (int i = 0; i < size; i++) {
+//
+//                int curCity = queue.poll();
+//
+//                for (int j = 0; j < graph[curCity].length; j++) {
+//
+//                    if (graph[curCity][j] == 1) {
+//                        int nextCity = graph[curCity][j];
+//
+//                        if (visited[nextCity] == 0) {
+//
+//                            queue.add(nextCity);
+//                            visited[nextCity] = 1;
+//
+//                        }
+//                    }
+//                }
+//            }
+//            count++;
+//
+//            if (count > k) {
+//                return -1;
+//            }
+//
+//        }
+
+        return -1;
     }
 
     public static void main(String[] args){
