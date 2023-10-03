@@ -1,68 +1,67 @@
 package advanced.ch3;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Q3_ {
 
     public int[] solution(int[] arrival, int[] state){
 
-        Map<Integer, List<int[]>> map = new HashMap<>();
         int n = arrival.length;
         int[] answer = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            map.putIfAbsent(arrival[i], new ArrayList<>());
-            map.get(arrival[i]).add(new int[]{i, state[i]});
-        }
+        Queue<Integer> in = new LinkedList<>();
+        Queue<Integer> out = new LinkedList<>();
 
-        Comparator<int[]> inFirst = (o1, o2) -> {
-            if (o1[1] == o2[1]) {
-                return o1[0] - o2[0];
+        // 0 : 들어오는 사원, 1 : 나가는 사원
+        int prev = 1;
+        int count = 0;
+        for (int t = 0, i = 0; t <= 200000; t++) {
+
+            if (in.isEmpty() && out.isEmpty()) {
+                prev = 1;
+                t = arrival[i];
             }
-            return o1[1] - o2[1];
-        };
 
-        Comparator<int[]> outFirst = (o1, o2) -> {
-            if (o1[1] == o2[1]) {
-                return o1[0] - o2[0];
+            while (i < n && arrival[i] <= t) {
+                int s = state[i];
+                if (s == 0) {
+                    in.add(i);
+                } else {
+                    out.add(i);
+                }
+
+                i++;
             }
-            return o2[1] - o1[1];
-        };
 
-        Queue<int[]> queue = new LinkedList<>();
-        int second = 0;
-        for (Integer arrivalTime : map.keySet()) {
+            int idx;
+            if (prev == 0) {
+                // 1초 전 : 들어오는 사람
+                if (!in.isEmpty()) {
+                    idx = in.poll();
+                } else {
+                    idx = out.poll();
+                    prev = 1;
+                }
 
-//            if (queue.isEmpty()) {
-//                queue.add()
-//            }
-        }
-
-/*
-0초 : 나감
-1초 : 들어옴, 들어옴, 나감
-2초 : 들어옴
-3초 : 들어옴
-8초 : 나감
-8초 : 들어옴
-*/
-
-/*
-        int second = 0;
-        for (int[] s : list) {
-            int index = s[0];
-            int arrivalTime = s[1];
-
-            int time = arrivalTime;
-            if (second >= arrivalTime) {
-                time = second;
             } else {
-                // second < arrivalTime
-                second = arrivalTime;
+                // 1초 전 : 나가는 사람
+                if (!out.isEmpty()) {
+                    idx = out.poll();
+                } else {
+                    idx = in.poll();
+                    prev = 0;
+                }
             }
-            answer[index] = time;
-            second++;
-        }*/
+            answer[idx] = t;
+            count++;
+            if (n == count) {
+                break;
+            }
+        }
+
+
         return answer;
     }
 

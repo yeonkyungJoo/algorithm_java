@@ -1,10 +1,56 @@
 package advanced.ch3;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Q4 {
 
-    public int solution(int[] laser, String[] enter){
+    private int parseTime(String time) {
+        String[] splits = time.split(":");
+        int h = Integer.parseInt(splits[0]);
+        int m = Integer.parseInt(splits[1]);
+        return h * 60 + m;
+    }
+
+    public int solution(int[] laser, String[] enters){
         int answer = 0;
 
+        List<int[]> list = new ArrayList<>();
+        for (int i = 0; i < enters.length; i++) {
+
+            String enter = enters[i];
+
+            String[] splits = enter.split(" ");
+            String enterTime = splits[0];
+            int laserIndex = Integer.parseInt(splits[1]);
+
+            int parsedEnterTime = parseTime(enterTime);
+            list.add(new int[]{parsedEnterTime, laserIndex});
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(list.get(0)[1]);
+        int finishTime = list.get(0)[0];
+        for (int t = finishTime, i = 1; t <= 1200; t++) {
+
+            if (i < enters.length && t == list.get(i)[0]) {
+                if (queue.isEmpty() && list.get(i)[0] > finishTime) {
+                    finishTime = list.get(i)[0];
+                }
+                queue.add(list.get(i)[1]);
+                i++;
+            }
+
+            if (t == finishTime) {
+                if (!queue.isEmpty()) {
+                    int laserIndex = queue.poll();
+                    finishTime += laser[laserIndex];
+                }
+            }
+            answer = Integer.max(answer, queue.size());
+        }
         return answer;
     }
 
