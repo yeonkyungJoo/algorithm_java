@@ -26,10 +26,6 @@ public class Q2 {
             for (int i = 0; i < size; i++) {
 
                 Integer curStation = queue.poll();
-//                if (curStation == e) {
-//                    return count;
-//                }
-
                 if (!graph.containsKey(curStation)) {
                     continue;
                 }
